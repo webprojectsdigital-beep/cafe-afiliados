@@ -10,3 +10,22 @@ export const SITE = {
   url: 'https://example.com', // el dominio real lo ponemos en el Paso 16
   email: 'hola@example.com',
 };
+
+// Menú principal. Lo usan la cabecera y el pie de página.
+export const NAV = [
+  { href: '/cafeteras/', label: 'Cafeteras' },
+  { href: '/molinillos/', label: 'Molinillos' },
+  { href: '/accesorios/', label: 'Accesorios' },
+  { href: '/cafe-en-grano/', label: 'Café en grano' },
+  { href: '/comparativas/', label: 'Comparativas' },
+  { href: '/guias/', label: 'Guías' },
+];
+
+// Enlaces legales y de información. Van en el pie.
+export const LEGAL = [
+  { href: '/sobre-mi/', label: 'Sobre mí' },
+  { href: '/aviso-de-afiliacion/', label: 'Aviso de afiliación' },
+  { href: '/contacto/', label: 'Contacto' },
+  { href: '/privacidad/', label: 'Privacidad' },
+  { href: '/cookies/', label: 'Cookies' },
+];

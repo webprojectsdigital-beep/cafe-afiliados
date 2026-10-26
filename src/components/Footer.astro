@@ -1,0 +1,119 @@
+---
+// src/components/Footer.astro
+import { SITE, NAV, LEGAL } from '../data/site';
+
+const año = new Date().getFullYear();
+---
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="site-footer__cols">
+      <div class="stack">
+        <p class="site-footer__logo">{SITE.name}</p>
+        <p class="site-footer__texto">{SITE.description}</p>
+      </div>
+
+      <nav aria-label="Secciones">
+        <h2 class="site-footer__titulo">Secciones</h2>
+        <ul>
+          {NAV.map((i) => (
+            <li>
+              <a href={i.href}>{i.label}</a>
+            </li>
+          ))}
+        </ul>
+      </nav>
+
+      <nav aria-label="Información">
+        <h2 class="site-footer__titulo">Información</h2>
+        <ul>
+          {LEGAL.map((i) => (
+            <li>
+              <a href={i.href}>{i.label}</a>
+            </li>
+          ))}
+        </ul>
+      </nav>
+    </div>
+
+    <p class="aviso site-footer__aviso">
+      Como afiliado, puedo recibir comisiones por las compras que se hagan desde los enlaces de esta
+      web, sin coste extra para ti. Más info en el
+      <a href="/aviso-de-afiliacion/">aviso de afiliación</a>.
+    </p>
+
+    <p class="site-footer__copy">
+      © {año} {SITE.name}. Todos los derechos reservados.
+    </p>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    margin-top: var(--space-8);
+    padding-block: var(--space-7) var(--space-5);
+    background: var(--color-bg-alt);
+    border-top: 1px solid var(--color-border);
+  }
+
+  .site-footer__cols {
+    display: grid;
+    gap: var(--space-6);
+    grid-template-columns: 1fr;
+  }
+
+  @media (min-width: 48rem) {
+    .site-footer__cols {
+      grid-template-columns: 2fr 1fr 1fr;
+    }
+  }
+
+  .site-footer__logo {
+    font-family: var(--font-heading);
+    font-size: var(--text-xl);
+    font-weight: 700;
+  }
+
+  .site-footer__texto {
+    color: var(--color-text-muted);
+    max-width: 40ch;
+  }
+
+  .site-footer__titulo {
+    font-family: var(--font-body);
+    font-size: var(--text-sm);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--color-text-muted);
+    margin-bottom: var(--space-3);
+  }
+
+  .site-footer ul {
+    list-style: none;
+    padding: 0;
+  }
+
+  .site-footer li + li {
+    margin-top: var(--space-2);
+  }
+
+  .site-footer nav a {
+    color: var(--color-text);
+    text-decoration: none;
+  }
+
+  .site-footer nav a:hover {
+    color: var(--color-accent);
+    text-decoration: underline;
+  }
+
+  .site-footer__aviso {
+    margin-top: var(--space-6);
+  }
+
+  .site-footer__copy {
+    margin-top: var(--space-5);
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+  }
+</style>

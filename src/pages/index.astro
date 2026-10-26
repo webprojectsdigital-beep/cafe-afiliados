@@ -1,17 +1,11 @@
 ---
-// Lo que hay entre las barras se ejecuta al compilar, no en el navegador.
-const titulo = 'Café en casa';
+// src/pages/index.astro
+import BaseLayout from '../layouts/BaseLayout.astro';
 ---
 
-<!doctype html>
-<html lang="es">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>{titulo}</title>
-  </head>
-  <body>
-    <h1>{titulo}</h1>
-    <p>Todo funciona. Esto es solo un marcador de posición.</p>
-  </body>
-</html>
+<BaseLayout title="Inicio">
+  <div class="container" style="padding-block: var(--space-7);">
+    <h1>Aquí irá la home</h1>
+    <p>Por ahora solo comprobamos que la cabecera y el pie funcionan.</p>
+  </div>
+</BaseLayout>
