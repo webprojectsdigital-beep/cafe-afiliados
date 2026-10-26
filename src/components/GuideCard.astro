@@ -1,0 +1,95 @@
+---
+// src/components/GuideCard.astro
+import Media from './Media.astro';
+import type { ImageMetadata } from 'astro';
+
+interface Props {
+  href: string;
+  titulo: string;
+  extracto: string;
+  fecha: string; // formato 2026-10-01
+  image?: ImageMetadata;
+}
+
+const { href, titulo, extracto, fecha, image } = Astro.props;
+
+const fechaLarga = new Date(fecha).toLocaleDateString('es-ES', {
+  day: 'numeric',
+  month: 'long',
+  year: 'numeric',
+});
+---
+
+<article class="guia card">
+  <Media
+    src={image}
+    alt={image ? titulo : ''}
+    ratio="16 / 9"
+    label="Foto de la guía"
+    widths={[400, 800]}
+    sizes="(min-width: 62rem) 30vw, (min-width: 36rem) 45vw, 100vw"
+  />
+  <div class="guia__cuerpo">
+    <time datetime={fecha}>{fechaLarga}</time>
+    <h3>
+      <a href={href}>{titulo}</a>
+    </h3>
+    <p>{extracto}</p>
+  </div>
+</article>
+
+<style>
+  .guia {
+    position: relative;
+    padding: 0;
+    overflow: hidden;
+    transition:
+      border-color 0.15s,
+      transform 0.15s;
+  }
+
+  .guia:hover {
+    border-color: var(--color-accent);
+    transform: translateY(-2px);
+  }
+
+  .guia__cuerpo {
+    padding: var(--space-4) var(--space-5) var(--space-5);
+    display: grid;
+    gap: var(--space-2);
+  }
+
+  time {
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+  }
+
+  .guia h3 {
+    font-size: var(--text-lg);
+  }
+
+  .guia h3 a {
+    color: var(--color-text);
+    text-decoration: none;
+  }
+
+  .guia h3 a::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+  }
+
+  .guia p {
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .guia {
+      transition: none;
+    }
+    .guia:hover {
+      transform: none;
+    }
+  }
+</style>

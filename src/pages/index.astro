@@ -1,11 +1,228 @@
 ---
 // src/pages/index.astro
 import BaseLayout from '../layouts/BaseLayout.astro';
+import Button from '../components/Button.astro';
+import Media from '../components/Media.astro';
+import CategoryCard from '../components/CategoryCard.astro';
+import ProductCard from '../components/ProductCard.astro';
+import GuideCard from '../components/GuideCard.astro';
+import { CATEGORIAS, DESTACADOS, GUIAS } from '../data/home';
+
+// Cuando tengas la foto del hero, descomenta estas dos líneas
+// y pásale heroImg al componente Media de abajo:
+// import heroImg from '../assets/images/hero-cafe.jpg';
 ---
 
-<BaseLayout title="Inicio">
-  <div class="container" style="padding-block: var(--space-7);">
-    <h1>Aquí irá la home</h1>
-    <p>Por ahora solo comprobamos que la cabecera y el pie funcionan.</p>
-  </div>
+<BaseLayout
+  title="Inicio"
+  description="Reseñas sinceras, comparativas y guías para elegir tu cafetera, tu molinillo y tus accesorios de café."
+>
+  <!-- ========== HERO ========== -->
+  <section class="hero">
+    <div class="container hero__inner">
+      <div class="hero__texto stack">
+        <p class="hero__sobre">Reseñas, comparativas y guías</p>
+        <h1>Mejor café en casa, sin tirar el dinero</h1>
+        <p class="hero__lead">
+          Te ayudamos a elegir cafetera, molinillo y accesorios a la primera. Sin jerga, sin humo y
+          diciendo qué no merece la pena.
+        </p>
+        <div class="hero__botones">
+          <Button href="/comparativas/">Ver comparativas</Button>
+          <Button href="/guias/" variant="secondary">
+            Empezar por las guías
+          </Button>
+        </div>
+      </div>
+
+      <div class="hero__media">
+        <Media
+          ratio="4 / 3"
+          label="Foto principal"
+          alt="Café recién preparado en una taza"
+          widths={[600, 900, 1200, 1600]}
+          sizes="(min-width: 62rem) 560px, 100vw"
+          priority
+        />
+        <!-- Con foto real: <Media src={heroImg} alt="..." ... priority /> -->
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== CATEGORÍAS ========== -->
+  <section class="seccion">
+    <div class="container">
+      <header class="seccion__cabecera">
+        <h2>Explora por categoría</h2>
+      </header>
+      <div class="grid grid--cat">
+        {CATEGORIAS.map((c) => (
+          <CategoryCard {...c} />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== PRODUCTOS DESTACADOS ========== -->
+  <section class="seccion">
+    <div class="container">
+      <header class="seccion__cabecera">
+        <h2>Los que más recomendamos</h2>
+        <a href="/comparativas/">Ver todas las comparativas →</a>
+      </header>
+      <div class="grid grid--prod">
+        {DESTACADOS.map((p) => (
+          <ProductCard {...p} />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== GUÍAS ========== -->
+  <section class="seccion">
+    <div class="container">
+      <header class="seccion__cabecera">
+        <h2>Últimas guías</h2>
+        <a href="/guias/">Ver todas las guías →</a>
+      </header>
+      <div class="grid grid--prod">
+        {GUIAS.map((g) => (
+          <GuideCard {...g} />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== CONFIANZA ========== -->
+  <section class="confianza">
+    <div class="container">
+      <h2>Cómo hacemos las reseñas</h2>
+      <div class="confianza__grid">
+        <div class="stack">
+          <h3>Escribimos lo que pensamos</h3>
+          <p>
+            Si un producto tiene fallos, lo contamos. Una reseña que solo habla bien de todo no le
+            sirve a nadie.
+          </p>
+        </div>
+        <div class="stack">
+          <h3>Mirando para quién es cada cosa</h3>
+          <p>
+            Una cafetera buena para uno es un ffallo para otro. Siempre explicamos a quién le encaja
+            y a quién no.
+          </p>
+        </div>
+        <div class="stack">
+          <h3>Con los enlaces a la vista</h3>
+          <p>
+            Algunos enlaces son de afiliado y podemos recibir una comisión. A ti no te cuesta nada
+            más y nos ayuda a mantener la web. <a href="/aviso-de-afiliacion/">Más info</a>.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
 </BaseLayout>
+
+<style>
+  /* ---------- Hero ---------- */
+  .hero {
+    padding-block: var(--space-7);
+  }
+
+  .hero__inner {
+    display: grid;
+    gap: var(--space-6);
+    align-items: center;
+  }
+
+  .hero__sobre {
+    font-size: var(--text-sm);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--color-sage);
+  }
+
+  .hero__lead {
+    font-size: var(--text-lg);
+    color: var(--color-text-muted);
+    max-width: 52ch;
+  }
+
+  .hero__botones {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+    padding-top: var(--space-2);
+  }
+
+  .hero__media {
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: var(--shadow);
+  }
+
+  @media (min-width: 62rem) {
+    .hero {
+      padding-block: var(--space-8);
+    }
+    .hero__inner {
+      grid-template-columns: 1.1fr 0.9fr;
+    }
+  }
+
+  /* ---------- Secciones ---------- */
+  .seccion {
+    padding-top: var(--space-7);
+  }
+
+  .seccion__cabecera {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: var(--space-2) var(--space-5);
+    margin-bottom: var(--space-5);
+  }
+
+  .seccion__cabecera a {
+    font-weight: 600;
+    font-size: var(--text-sm);
+  }
+
+  .grid {
+    display: grid;
+    gap: var(--space-5);
+  }
+
+  .grid--cat {
+    grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+  }
+
+  .grid--prod {
+    grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+  }
+
+  /* ---------- Confianza ---------- */
+  .confianza {
+    margin-top: var(--space-8);
+    padding-block: var(--space-7);
+    background: var(--color-bg-alt);
+    border-block: 1px solid var(--color-border);
+  }
+
+  .confianza h2 {
+    margin-bottom: var(--space-6);
+  }
+
+  .confianza__grid {
+    display: grid;
+    gap: var(--space-6);
+    grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+  }
+
+  .confianza h3 {
+    font-size: var(--text-lg);
+  }
+</style>
