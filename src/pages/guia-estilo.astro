@@ -1,0 +1,114 @@
+---
+// src/pages/guia-estilo.astro
+// Página TEMPORAL para revisar el diseño. Se borra antes de publicar.
+import '@fontsource-variable/fraunces';
+import '@fontsource-variable/inter';
+import '../styles/global.css';
+import Button from '../components/Button.astro';
+import { SITE } from '../data/site';
+
+const colores = [
+  ['bg', 'Fondo'],
+  ['bg-alt', 'Fondo alterno'],
+  ['surface', 'Tarjeta'],
+  ['text', 'Texto'],
+  ['accent', 'Acento'],
+  ['sage', 'Salvia'],
+];
+---
+
+<!doctype html>
+<html lang={SITE.lang}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex" />
+    <title>Guía de estilo · {SITE.name}</title>
+    <style>
+      .muestras {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(8rem, 1fr));
+        gap: var(--space-4);
+      }
+      .muestra {
+        height: 5rem;
+        border: 1px solid var(--color-border);
+        border-radius: var(--radius);
+      }
+      .fila {
+        display: flex;
+        flex-wrap: wrap;
+        gap: var(--space-3);
+      }
+      main {
+        padding-block: var(--space-7);
+      }
+      section + section {
+        margin-top: var(--space-7);
+      }
+    </style>
+  </head>
+  <body>
+    <main class="container">
+      <header class="stack">
+        <h1>{SITE.name}</h1>
+        <p>{SITE.tagline}</p>
+      </header>
+
+      <section class="stack">
+        <h2>Colores</h2>
+        <div class="muestras">
+          {colores.map(([token, nombre]) => (
+            <div>
+              <div class="muestra" style={`background: var(--color-${token})`} />
+              <small>{nombre}</small>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section class="stack">
+        <h2>Tipografía</h2>
+        <h1>Titular uno</h1>
+        <h2>Titular dos</h2>
+        <h3>Titular tres</h3>
+        <h4>Titular cuatro</h4>
+        <div class="prose">
+          <p>
+            Un párrafo de ejemplo para ver cómo se lee. El café molido justo antes de prepararlo
+            huele distinto, y eso se nota en la taza. <a href="#">Esto es un enlace</a>.
+          </p>
+          <ul>
+            <li>Primer elemento de una lista</li>
+            <li>Segundo elemento</li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="stack">
+        <h2>Botones y etiquetas</h2>
+        <div class="fila">
+          <Button href="#">Ver oferta</Button>
+          <Button href="#" variant="secondary">
+            Leer reseña
+          </Button>
+          <span class="badge">Mejor calidad-precio</span>
+        </div>
+      </section>
+
+      <section class="stack">
+        <h2>Tarjeta y aviso</h2>
+        <article class="card stack">
+          <span class="badge">Cafetera espresso</span>
+          <h3>Nombre del producto</h3>
+          <p>Una descripción corta de cómo sería una tarjeta de producto.</p>
+          <Button href="#">Ver precio</Button>
+        </article>
+        <p class="aviso">
+          Este artículo contiene enlaces de afiliado. Si compras desde ellos, puedo recibir una
+          comisión, sin coste extra para ti.
+        </p>
+      </section>
+    </main>
+  </body>
+</html>

@@ -1,0 +1,15 @@
+---
+// src/components/Button.astro
+// Si le pasas href se pinta como enlace; si no, como botón.
+interface Props {
+  href?: string;
+  variant?: 'primary' | 'secondary';
+}
+
+const { href, variant = 'primary' } = Astro.props;
+const Tag = href ? 'a' : 'button';
+---
+
+<Tag href={href} class={`btn btn--${variant}`}>
+  <slot />
+</Tag>
